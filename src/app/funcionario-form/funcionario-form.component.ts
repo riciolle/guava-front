@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-funcionario-form',
   templateUrl: './funcionario-form.component.html',
   styleUrls: ['./funcionario-form.component.css']
+  
 })
 export class FuncionarioFormComponent {
 
   ultimoId = 0;
   nome = 'Guava';
   adicionado = false;
-  funcionarios = [];
+  @Output() funcionarioAdicionado = new EventEmitter();
 
   adicionar() {
     console.log(`Adicionando ${this.nome}`);
     this.adicionado = true;
 
-    this.funcionarios.push({
+    const funcionario = ({
       id: ++this.ultimoId,
       nome: this.nome
     });
+    
+    this.funcionarioAdicionado.emit(funcionario);
+
   }
   
 }
